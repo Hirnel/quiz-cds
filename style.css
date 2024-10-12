@@ -1,0 +1,247 @@
+* {
+    padding: 0;
+    margin: 0;
+
+}
+
+:root {
+    --yellow: #FFD23F;
+    --purple: #540D6E;
+    --red: #EE4266;
+    --green: #30e260;
+    --blue: #4267ee;
+}
+
+body {
+    /* background: rgb(23, 195, 178);
+    background: linear-gradient(301deg, rgba(23, 195, 178, 1) 0%, rgba(178, 137, 201, 1) 100%); */
+    background: var(--yellow);
+
+    font-family: 'Poppins', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1,
+h2,
+button {
+    font-family: 'Tiny5', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+h1 {
+    font-size: 30px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+header {
+    height: 10vh;
+    background: rgba(255, 255, 255, 0.652);
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    color: white;
+    background-color: black;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+li {
+    list-style: none;
+    font-size: 14px;
+}
+
+
+.start-btn,
+.next-btn,
+.option,
+.play-again-btn {
+    font-size: 22px;
+    padding: 14px;
+    width: 200px;
+    border: 0px solid;
+    border-radius: 10px;
+    color: white;
+    background-color: var(--purple);
+    transition: transform .2s;
+}
+
+.start-btn:hover,
+.next-btn:hover {
+    color: white;
+    background-color: var(--red);
+    transform: scale(1.1);
+    cursor: pointer;
+}
+
+.content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: center;
+    padding: 60px 0px 120px 0px;
+}
+
+.welcome-box,
+.stats-box,
+.quiz-box,
+.result-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px 40px;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    border: 4px dashed #e1ad01;
+}
+
+.quiz-box {
+    width: 600px;
+    gap: 40px;
+}
+
+.result-box {
+    width: 800px;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: 100%;
+    gap: 40px
+}
+
+.result-text{
+    display: flex;
+    flex-direction: column;
+    gap: 10px
+}
+
+.play-again-btn{
+    margin-top: 20px;
+}
+
+.score {
+    width: 200px;
+    height: 200px;
+    background: rgb(193, 193, 193);
+}
+
+.chart {
+    height: 200px;
+    width: 100%;
+    background: rgb(193, 193, 193);
+}
+
+.logo {
+    width: 460px;
+}
+
+#imgPets {
+    height: 200px;
+    width: 100%;
+    background: rgb(193, 193, 193);
+}
+
+/* Preguntas Quizz */
+
+.options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.options div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 30px;
+}
+
+.option {
+    font-size: 28px;
+    padding: 30px 80px;
+    width: auto;
+}
+
+.option1 {
+    background-color: var(--red);
+    transition: transform .2s;
+}
+
+.option1:hover {
+    background-color: #ff6788;
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+.option2 {
+    background-color: var(--yellow);
+}
+
+.option2:hover {
+    background-color: #ffe079;
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+.option3 {
+    background-color: var(--green);
+}
+
+.option3:hover {
+    background-color: #64ff8d;
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+.option4 {
+    background-color: var(--blue);
+}
+
+.option4:hover {
+    background-color: #7a97ff;
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+/* ---------- Media Queries ---------- */
+@media (max-width: 768px) {
+
+    h1,
+    h2 {
+        font-size: 24px;
+    }
+
+    button {
+        font-size: 18px;
+        padding: 12px;
+        width: 180px;
+    }
+
+    header,
+    footer {
+        height: 8vh;
+    }
+
+    .content {
+        padding: 20px 24px 100px 24px;
+    }
+
+    .logo {
+        width: 70%;
+    }
+
+}

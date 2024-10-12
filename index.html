@@ -1,20 +1,30 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <!-- CAMBIOS: Tipografías añadidas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap" rel="stylesheet">
     <title>Document</title>
 </head>
+
 <body>
+    <!-- CAMBIOS: Header fuera del div -->
+    <header>
+        <!-- CAMBIOS: Logo en png -->
+        <img src="/media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
+    </header>
     <div class="container-home">
-        <header>
-            <h1>Quiz</h1>
-        </header>
         <div class="content">
             <div class="welcome-box">
-                <h2>¡Welcome to the quiz!</h2>
-                <button class="start-btn">Take the Quiz</button>
+                <h2>Welcome to the quizz!</h2>
+                <!-- CAMBIOS: Añadida imgaen -->
+                <img src="" alt="" id="imgPets">
+                <button class="start-btn">Take the Quizz</button>
             </div>
             <div class="stats-box">
                 <h2>Your stats</h2>
@@ -31,6 +41,11 @@
             </div>
         </div>
     </div>
+    <!-- CAMBIOS: Añadido Footer para ubicar a nivel CSS -->
+    <footer>
+        <p>Texto de prueba</p>
+    </footer>
     <script src="script.js"></script>
 </body>
+
 </html>
