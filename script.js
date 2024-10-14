@@ -27,9 +27,66 @@ opciones.forEach((opcion, index) => {
     
     // Añadir la fila a la tabla
     tablaOpciones.appendChild(fila);
+    
 });
 
-// Manejo del botón "Siguiente"
+// Manejo del botón "Siguiente" tiene que ser obligatorio seleccionar una respuesta. 
 document.getElementById('next-question').addEventListener('click', () => {
     alert('Siguiente pregunta');
+    
 });
+
+/* quiero guardar en localStorage: Usuario, email, scores, aciertos, 
+*/
+// localStorage.setItem(user, email, scores, successes);
+
+
+// hago dos consts para pedir el id de contact-List y contact-form
+if(localStorage.getItem("user") != null){
+
+}
+localStorage.setItem("usuarios",JSON.stringify([])); //iniciar variables
+
+const form = document.getElementById("contact-form");
+const contactList= document.getElementById("contact-list");
+const deleteSelect = document.getElementById("delete-select");
+const deleteAllButton = document.getElementById("delete-all");
+
+form.addEventListener("submit", function (event){
+    event.preventDefault();
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+
+    const contact ={
+        name, email
+    }
+    saveContact(contact);
+})
+
+function saveContact(contact){
+    let contacts = JSON.parse(localStorage.getItem("contacts")) || [];
+    contacts.push (contact);
+    localStorage.setItem("contacts", JSON.stringify(contacts))
+}
+
+deleteSelect.addEventListener("click", function() {})
+
+function checkEmail() {
+    let email = document.getElementById("email");
+    const regExpPw = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regExpPw.test(email.value)) {
+        email.style.borderColor = "red"; 
+    } else {
+        email.style.borderColor = "green";
+    }
+};
+function checkEfmail() {
+    let email = document.getElementById("efmail");
+    const regExpPw = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!regExpPw.test(email.value)) {
+        email.style.borderColor = "red"; 
+    } else {
+        email.style.borderColor = "green";
+    }
+};
+
