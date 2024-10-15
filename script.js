@@ -168,12 +168,6 @@ async function getQuestionsHard() {
     }
 }
 
-//getQuestionsEasy().then(datos => console.log(datos));
-
-// getQuestionsMedium().then(datos => console.log(datos));
-
-// getQuestionsHard().then(datos => console.log(datos));
-
 
 
 async function printQuestions(questionObjects) {
@@ -185,17 +179,22 @@ printQuestions().then(datos => console.log(datos))
 
 
 
-// const div = document.getElementById('quiz-box')
-// const titulo = document.getElementById('pregunta');
-// titulo.innerText = "hola";
-// div.appendChild(titulo);
 
-// for (let i = 0; i < 10; i++) {  // Bucle for que ocurre 3 veces
+document.addEventListener("DOMContentLoaded", function() {
+    // Seleccionar el botón usando su ID
+    let button = document.getElementById('start-btn');
 
-    //const div = document.getElementsByClassName('quiz-box')
-    // const img = document.createElement('img');
-    // const p = document.createElement('p');
-    
+    // Verificar si el botón existe
+    if (button) {
+        // Añadir un event listener al botón para ejecutar una función cuando se haga clic
+        button.addEventListener('click', function() {
+            // Usar console.log() para verificar que el evento click está ocurriendo
+            console.log('Botón clicado!');
 
-    // div.appendChild(pregunta);  // Introduce un h3 --> div
-    
+            // Redirigir a question.html cuando se hace clic en el botón
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn');
+    }
+});

@@ -62,7 +62,7 @@ li {
 }
 
 
-.start-btn,
+#start-btn,
 .next-btn,
 .option,
 .play-again-btn {
@@ -76,7 +76,7 @@ li {
     transition: transform .2s;
 }
 
-.start-btn:hover,
+#start-btn:hover,
 .next-btn:hover {
     color: white;
     background-color: var(--red);
