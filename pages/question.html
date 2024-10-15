@@ -8,7 +8,9 @@
     <!-- CAMBIOS: Tipografías añadidas -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap"
+        rel="stylesheet">
     <title>Quiz</title>
 </head>
 
@@ -18,29 +20,30 @@
         <!-- CAMBIOS: Logo en png -->
         <img src="../media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
     </header>
-        <!-- CAMBIOS: Cambiada la clase a "content" para reutilizar el mismo CSS del index.html -->
-    <div class="content"">
+    <!-- CAMBIOS: Cambiada la clase a "content" para reutilizar el mismo CSS del index.html -->
+    <div class="content">
         <div class="quiz-box">
             <h2>Pregunta del Quizz</h2>
-            <div class="options">
-                <!-- CAMBIOS: Creación de 2 divs para organizar mejor las opciones en CSS -->
-                 <div>
-                    <button class="option option1">Opción 1</button>
-                    <button class="option option2">Opción 2</button>
-                 </div>
-                <div>
-                    <button class="option option3">Opción 3</button>
-                    <button class="option option4">Opción 4</button>
-                </div>  
+            <div id="pregunta"></div> <!-- Aquí se mostrará la pregunta -->
+
+            <div>
+                <button class="option option1">Opción 1</button>
+                <button class="option option2">Opción 2</button>
             </div>
-            <button class="next-btn">Siguiente</button>
+            <div>
+                <button class="option option3">Opción 3</button>
+                <button class="option option4">Opción 4</button>
+            </div>
+
+            <script src="jaja2.js"></script> <!-- Lógica del Quiz -->
+
         </div>
     </div>
     <!-- CAMBIOS: Añadido Footer para ubicar a nivel CSS -->
     <footer>
         <p>Texto de prueba</p>
     </footer>
-    <script src="./script.js"></script>
+    <!-- <script src="./script.js"></script> -->
 </body>
 
 </html>
