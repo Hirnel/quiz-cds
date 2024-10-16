@@ -72,6 +72,33 @@ li {
     border: 0px solid;
     border-radius: 10px;
     color: white;
+    background-color: var(--yellow);
+    transition: transform .2s;
+}
+.start-btn2,
+.next-btn,
+.option,
+.play-again-btn {
+    font-size: 22px;
+    padding: 14px;
+    width: 200px;
+    border: 0px solid;
+    border-radius: 10px;
+    color: white;
+    background-color: var(--red);
+    transition: transform .2s;
+}
+
+.start-btn3,
+.next-btn,
+.option,
+.play-again-btn {
+    font-size: 22px;
+    padding: 14px;
+    width: 200px;
+    border: 0px solid;
+    border-radius: 10px;
+    color: white;
     background-color: var(--purple);
     transition: transform .2s;
 }
