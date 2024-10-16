@@ -285,6 +285,26 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error('No se encontró el botón con ID start-btn');
     }
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleccionar el botón usando su ID
+    let buttonPlayAgain = document.querySelector('.play-again-btn');
+
+    // Verificar si el botón existe
+    if (buttonPlayAgain) {
+        // Añadir un event listener al botón para ejecutar una función cuando se haga clic
+        buttonPlayAgain.addEventListener('click', function () {
+            // Usar console.log() para verificar que el evento click está ocurriendo
+            console.log('Botón clicado!');
+
+            // Redirigir a question.html cuando se hace clic en el botón
+            location.href = '../index.html'; // Cambia la ruta si es necesario
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn');
+    }
+});
+
 // ------------------------------------------------------------------------------------------------
 
 
