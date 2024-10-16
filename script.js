@@ -198,4 +198,4 @@ printQuestions().then(datos => console.log(datos))
     
 
     // div.appendChild(pregunta);  // Introduce un h3 --> div
-    
+  
