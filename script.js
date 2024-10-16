@@ -5,7 +5,7 @@ if (!localStorage.getItem("Games")) {
 }
 
 // ----------------------------------------------------------------------------------------------------- 
-
+// PARAMETRIZAR
 const apiEasy = "https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple";
 const apiMedium = "https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple";
 const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple";
@@ -124,10 +124,34 @@ const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=ha
 //     }
 // }
 
-// Función principal para cargar las preguntas desde la API y pintar la primera pregunta
+// ALMACENAR OBJETO EN WEB STORAGE
+function updateGames(games) {
+    localStorage.setItem("Games", JSON.stringify(games));
+}
 
-let aciertos = 0;  // Variable para contar aciertos
-let fallos = 0;    // Variable para contar fallos
+// Función principal para cargar las preguntas desde la API y pintar la primera pregunta
+let games = [];
+
+// Obtener fecha en formato Día/Mes/Hora
+let currentDate = new Date();
+const day = currentDate.getUTCDate();
+const month = currentDate.getUTCMonth() + 1;
+const year = currentDate.getUTCFullYear();
+// Convertir a String
+let dateString = `${day}/${month}/${year}`;
+
+// OBJETO CON FECHA Y RESULTADOS
+let game = {
+    date: dateString,
+    data: [],
+    score: Infinity // Calcular la puntuación después de crear el objeto
+};
+
+let dataResults = game.data;
+
+//Traer data local storage
+// Añadir
+// Volver a subir a local storage
 
 // Función para mezclar las respuestas
 
@@ -145,7 +169,13 @@ function pintarPregunta(quizData, index) {
 
     // Verificar si hay más preguntas
     if (index >= quizData.length) {
-        mostrarResultadosFinales();  // Mostrar resultados al terminar
+        // mostrarResultadosFinales();  // Mostrar resultados al terminar
+        // Almacenar objeto en array de objetos
+        games.push(game)
+        // Sumar puntuación
+        game.score = dataResults.reduce((acc, current) => acc + current, 0,);
+        updateGames(games);
+        location.href = '../pages/results.html';
         return;
     }
 
@@ -166,27 +196,42 @@ function pintarPregunta(quizData, index) {
     });
 }
 
+
+
+
+//  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
+// Acceder sólo al array para sumar puntuación
+
+
+
+
+
+
+
+
 // Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
 function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
     if (respuestaSeleccionada === correctAnswer) {
-        aciertos++;  // Incrementar aciertos si la respuesta es correcta
+        dataResults.push(1)
     } else {
-        fallos++;  // Incrementar fallos si la respuesta es incorrecta
+        dataResults.push(0)
     }
 
     // Avanzar a la siguiente pregunta
     pintarPregunta(quizData, currentIndex + 1);
 }
 
-// Función para mostrar los resultados finales al terminar el cuestionario
-function mostrarResultadosFinales() {
-    const resultadoElement = document.getElementById('resultado');
-    resultadoElement.innerHTML = `
-        <p>Has completado el cuestionario.</p>
-        <p>Aciertos: ${aciertos}</p>
-        <p>Fallos: ${fallos}</p>
-    `;
-}
+console.log(dataResults)
+
+// // Función para mostrar los resultados finales al terminar el cuestionario
+// function mostrarResultadosFinales() {
+//     const resultadoElement = document.getElementById('resultado');
+//     resultadoElement.innerHTML = `
+//         <p>Has completado el cuestionario.</p>
+//         <p>Aciertos: ${aciertos}</p>
+//         <p>Fallos: ${fallos}</p>
+//     `;
+// }
 
 // Función principal para cargar las preguntas desde la API y pintar la primera pregunta
 async function getQuestions() {
@@ -210,7 +255,7 @@ async function getQuestions() {
             correctAnswers.push(item.correct_answer);
             incorrectAnswers.push(item.incorrect_answers);
         });
-        
+
         const questionObjects = results.map((item, index) => ({
             question: questions[index],
             correctAnswer: correctAnswers[index],
@@ -218,7 +263,7 @@ async function getQuestions() {
         }));
 
         // Pintamos la primera pregunta
-        pintarPregunta(questionObjects, 0);  
+        pintarPregunta(questionObjects, 0);
 
     } catch (error) {
         console.error('Error:', error);
@@ -230,14 +275,14 @@ getQuestions();
 
 // EVENTOS
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     // Seleccionar el botón usando su ID
     let button = document.getElementById('start-btn');
 
     // Verificar si el botón existe
     if (button) {
         // Añadir un event listener al botón para ejecutar una función cuando se haga clic
-        button.addEventListener('click', function() {
+        button.addEventListener('click', function () {
             // Usar console.log() para verificar que el evento click está ocurriendo
             console.log('Botón clicado!');
 
@@ -261,108 +306,81 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Almacenar la puntuación de cada partida en un array de objetos [{..},{..},{..}...{..}] en Local Storage. Guardar puntuación y fecha en cada objeto del array
 
-// Obtener fecha en formato Día/Mes/Hora
-let currentDate = new Date();
-const day = currentDate.getUTCDate();
-const month = currentDate.getUTCMonth() + 1;
-const year = currentDate.getUTCFullYear();
-// Convertir a String
-let dateString = `${day}/${month}/${year}`;
+// // Obtener fecha en formato Día/Mes/Hora
+// let currentDate = new Date();
+// const day = currentDate.getUTCDate();
+// const month = currentDate.getUTCMonth() + 1;
+// const year = currentDate.getUTCFullYear();
+// // Convertir a String
+// let dateString = `${day}/${month}/${year}`;
 
-// OBJETO CON FECHA Y RESULTADOS
-let game = {
-    date: dateString,
-    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
-    score: Infinity // Calcular la puntuación después de crear el objeto
-};
-console.log("Objeto sin sumar score: ")
-console.log(game)
+// // OBJETO CON FECHA Y RESULTADOS
+// let game = {
+//     date: dateString,
+//     data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+//     score: Infinity // Calcular la puntuación después de crear el objeto
+// };
+// console.log("Objeto sin sumar score: ")
+// console.log(game)
 
-//  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
-// Acceder sólo al array para sumar puntuación
-let dataResults = game.data;
-console.log("Array de aciertos dentro del objeto: ")
-console.log(dataResults)
+// //  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
+// // Acceder sólo al array para sumar puntuación
+// let dataResults = game.data;
+// console.log("Array de aciertos dentro del objeto: ")
+// console.log(dataResults)
 
-// Sumar puntuación
-game.score = dataResults.reduce(
-    (acc, current) => acc + current, 0,);
-console.log("Objeto con score sumado: ")
-console.log(game)
+// // Sumar puntuación
+// game.score = dataResults.reduce(
+//     (acc, current) => acc + current, 0,);
+// console.log("Objeto con score sumado: ")
+// console.log(game)
 
-// ALMACENAR OBJETO EN WEB STORAGE
-function updateGames(game) {
-    localStorage.setItem("Games", JSON.stringify(game));
-}
+// // Almacenar objeto en array de objetos
 
-updateGames(game);
+// games.push(game)
+// console.log(games)
+// // ALMACENAR OBJETO EN WEB STORAGE
+// function updateGames(games) {
+//     localStorage.setItem("Games", JSON.stringify(games));
+// }
 
-// Objeto simulado de varias partidas
-let games = [{
-    date: "05/04/24",
-    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
-    score: 7
-    },
-    {
-        date: "06/11/24",
-        data: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-        score: 9
-    },
-    {
-        date: "15/12/24",
-        data: [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
-        score: 5
-    },
-]
+// updateGames(games);
 
 
-// PINTAR GRÁFICA CON FECHA + SCORE
-let arrayFechas = []; // Eje Y
-games.forEach(game => arrayFechas.push(game.date))
+// // PINTAR GRÁFICA CON FECHA + SCORE
+// let arrayFechas = []; // Eje Y
+// games.forEach(game => arrayFechas.push(game.date))
 
-let arrayScores = []; // Eje X
-games.forEach(game => arrayScores.push(game.score))
+// let arrayScores = []; // Eje X
+// games.forEach(game => arrayScores.push(game.score))
 
-console.log(arrayFechas, arrayScores)
+// console.log(arrayFechas, arrayScores)
 
-function printGraphic() {
-    new Chartist.Line('.chart', {
-        labels: arrayFechas,
-        series: [
-            arrayScores
-        ]
-    }, {
-        high: 10,
-        low: 0,
-        fullWidth: true,
-        // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
-        axisY: {
-            onlyInteger: true,
-            offset: 20
-        }
-    });
+// function printGraphic() {
 
-    const ctx = document.getElementById('chart2');
+//     const ctx = document.getElementById('chart');
 
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: arrayFechas,
-      datasets: [{
-        label: '# of Votes',
-        data: arrayScores,
-        borderWidth: 1
-      }]
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
-    }
-  });
-}
+//     new Chart(ctx, {
+//         type: 'line',
+//         data: {
+//             labels: arrayFechas,
+//             datasets: [{
+//                 label: 'My First Dataset',
+//                 data: arrayScores,
+//                 fill: false,
+//                 borderColor: 'rgb(75, 192, 192)',
+//                 tension: 0.1
+//             }]
+//         },
+//         options: {
+//             scales: {
+//                 y: {
+//                     beginAtZero: true
+//                 }
+//             }
+//         }
+//     });
+// }
 
 // Poner comentado cómo será cuando venga de LocalStorage
 
