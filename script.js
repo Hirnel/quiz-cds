@@ -295,11 +295,11 @@ let games = [];
 games.push(game)
 
 // ALMACENAR OBJETO EN WEB STORAGE
-function updateGames(game) {
+function updateGames(games) {
     localStorage.setItem("Games", JSON.stringify(games));
 }
 
-updateGames(game);
+updateGames(games);
 
 
 // PINTAR GRÁFICA CON FECHA + SCORE
