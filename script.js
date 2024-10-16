@@ -5,52 +5,6 @@ if (!localStorage.getItem("Games")) {
     localStorage.setItem("Games", JSON.stringify([]));
 }
 
-
-// Conseguir con 10 preguntas nuestras, guardadas en un array de objetos, se pueda jugar a nuestro Quiz. [{..},{..},{..}...{..}]
-
-
-
-// Mostrar en la Home con una gráfica los resultados de las últimas partidas jugadas (leer puntuaciones de LocalStorage). Representar Fecha(eje X) vs Puntuación(eje Y)
-
-
-// Almacenar la puntuación de cada partida en un array de objetos [{..},{..},{..}...{..}] en Local Storage. Guardar puntuación y fecha en cada objeto del array
-
-// Obtener fecha en formato Día/Mes/Hora
-let currentDate = new Date();
-const day = currentDate.getUTCDate();
-const month = currentDate.getUTCMonth() + 1;
-const year = currentDate.getUTCFullYear(); 
-// Convertir a String
-let dateString = `${day}/${month}/${year}`;
-
-// OBJETO CON FECHA Y RESULTADOS
-let game = {
-    date: dateString,
-    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
-    score: Infinity // Calcular la puntuación después de crear el objeto
-};
-console.log("Objeto sin sumar score: ")
-console.log(game)
-
-//  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
-// Acceder sólo al array para sumar puntuación
-let dataResults = game.data;
-console.log("Array de aciertos dentro del objeto: ")
-console.log(dataResults)
-
-// Sumar puntuación
-game.score = dataResults.reduce(
-    (acc, current) => acc + current, 0,);
-console.log("Objeto con score sumado: ")
-console.log(game)
-
-// ALMACENAR OBJETO EN WEB STORAGE
-function updateGames(game) {
-    localStorage.setItem("Games", JSON.stringify(game));
-}
-
-updateGames(game);
-
 // ----------------------------------------------------------------------------------------------------- 
 
 const apiEasy = "https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple";
@@ -184,6 +138,7 @@ function mezclarRespuestas(correctAnswer, incorrectAnswers) {
     return allAnswers.sort(() => Math.random() - 0.5);  // Mezclar aleatoriamente
 }
 
+
 // Función para pintar las preguntas en el DOM
 
 function pintarPregunta(quizData, index) {
@@ -272,5 +227,128 @@ async function getQuestions() {
     }
 }
 
-// Llamamos a la función al cargar la página
+
 getQuestions();
+// ------------------------------------------------------------------------------------------------
+
+
+
+// Conseguir con 10 preguntas nuestras, guardadas en un array de objetos, se pueda jugar a nuestro Quiz. [{..},{..},{..}...{..}]
+
+
+
+// Mostrar en la Home con una gráfica los resultados de las últimas partidas jugadas (leer puntuaciones de LocalStorage). Representar Fecha(eje X) vs Puntuación(eje Y)
+
+
+// Almacenar la puntuación de cada partida en un array de objetos [{..},{..},{..}...{..}] en Local Storage. Guardar puntuación y fecha en cada objeto del array
+
+// Obtener fecha en formato Día/Mes/Hora
+let currentDate = new Date();
+const day = currentDate.getUTCDate();
+const month = currentDate.getUTCMonth() + 1;
+const year = currentDate.getUTCFullYear();
+// Convertir a String
+let dateString = `${day}/${month}/${year}`;
+
+// OBJETO CON FECHA Y RESULTADOS
+let game = {
+    date: dateString,
+    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+    score: Infinity // Calcular la puntuación después de crear el objeto
+};
+console.log("Objeto sin sumar score: ")
+console.log(game)
+
+//  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
+// Acceder sólo al array para sumar puntuación
+let dataResults = game.data;
+console.log("Array de aciertos dentro del objeto: ")
+console.log(dataResults)
+
+// Sumar puntuación
+game.score = dataResults.reduce(
+    (acc, current) => acc + current, 0,);
+console.log("Objeto con score sumado: ")
+console.log(game)
+
+// ALMACENAR OBJETO EN WEB STORAGE
+function updateGames(game) {
+    localStorage.setItem("Games", JSON.stringify(game));
+}
+
+updateGames(game);
+
+// Objeto simulado de varias partidas
+let games = [{
+    date: "05/04/24",
+    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+    score: 7
+    },
+    {
+        date: "06/11/24",
+        data: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
+        score: 9
+    },
+    {
+        date: "15/12/24",
+        data: [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
+        score: 5
+    },
+]
+
+
+// PINTAR GRÁFICA CON FECHA + SCORE
+let arrayFechas = []; // Eje Y
+games.forEach(game => arrayFechas.push(game.date))
+
+let arrayScores = []; // Eje X
+games.forEach(game => arrayScores.push(game.score))
+
+console.log(arrayFechas, arrayScores)
+
+function printGraphic() {
+    new Chartist.Line('.chart', {
+        labels: arrayFechas,
+        series: [
+            arrayScores
+        ]
+    }, {
+        high: 10,
+        low: 0,
+        fullWidth: true,
+        // As this is axis specific we need to tell Chartist to use whole numbers only on the concerned axis
+        axisY: {
+            onlyInteger: true,
+            offset: 20
+        }
+    });
+
+    const ctx = document.getElementById('chart2');
+
+  new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: arrayFechas,
+      datasets: [{
+        label: '# of Votes',
+        data: arrayScores,
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
+
+// Poner comentado cómo será cuando venga de LocalStorage
+
+printGraphic();
+
+// Llamamos a la función al cargar la página
+
+
