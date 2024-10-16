@@ -1,3 +1,4 @@
+
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
 if (!localStorage.getItem("Games")) {
@@ -11,10 +12,186 @@ const apiMedium = "https://opentdb.com/api.php?amount=10&category=12&difficulty=
 const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple";
 
 
-// ------------------------------------------------------------------------------------------------------
+//  // ------------------------------------------------------------------------------------------------------
 
-// Funciones para recibir la información de las API y transformarla en objetos
-async function getQuestionsEasy() {
+// // Funciones para recibir la información de las API y transformarla en objetos
+// // Easy
+// async function getQuestionsEasy() {
+//     try {
+//         const response = await fetch(apiEasy);
+
+//         if (!response.ok) {
+//             console.error('Error al leer la API');
+//             throw new Error('Error en la respuesta de la API');
+//         }
+
+//         const data = await response.json();
+//         const results = data.results;
+
+//         let questions = [];
+//         let correctAnswers = [];
+//         let incorrectAnswers = [];
+
+//         results.forEach(item => {
+//             questions.push(item.question);
+//             correctAnswers.push(item.correct_answer);
+//             incorrectAnswers.push(item.incorrect_answers);
+//         });
+
+//         // Transformar los arrays en un array de objetos
+//         const questionObjects = results.map((item, index) => ({
+//             question: questions[index],
+//             correctAnswer: correctAnswers[index],
+//             incorrectAnswers: incorrectAnswers[index]
+//         }));
+
+//         return questionObjects;
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+
+//     //printData(questionObjects);
+// }
+// // Medium
+// async function getQuestionsMedium() {
+//     try {
+//         const response = await fetch(apiMedium);
+
+//         if (!response.ok) {
+//             console.error('Error al leer la API');
+//             throw new Error('Error en la respuesta de la API');
+//         }
+
+//         const data = await response.json();
+//         const results = data.results;
+
+//         let questions = [];
+//         let correctAnswers = [];
+//         let incorrectAnswers = [];
+
+//         results.forEach(item => {
+//             questions.push(item.question);
+//             correctAnswers.push(item.correct_answer);
+//             incorrectAnswers.push(item.incorrect_answers);
+//         });
+
+//         // Transformar los arrays en un array de objetos
+//         const questionObjects = results.map((item, index) => ({
+//             question: questions[index],
+//             correctAnswer: correctAnswers[index],
+//             incorrectAnswers: incorrectAnswers[index]
+//         }));
+
+//         return questionObjects;
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// }
+// //Hard
+// async function getQuestionsHard() {
+//     try {
+//         const response = await fetch(apiHard);
+
+//         if (!response.ok) {
+//             console.error('Error al leer la API');
+//             throw new Error('Error en la respuesta de la API');
+//         }
+
+//         const data = await response.json();
+//         const results = data.results;
+
+//         let questions = [];
+//         let correctAnswers = [];
+//         let incorrectAnswers = [];
+
+//         results.forEach(item => {
+//             questions.push(item.question);
+//             correctAnswers.push(item.correct_answer);
+//             incorrectAnswers.push(item.incorrect_answers);
+//         });
+
+//         // Transformar los arrays en un array de objetos
+//         const questionObjects = results.map((item, index) => ({
+//             question: questions[index],
+//             correctAnswer: correctAnswers[index],
+//             incorrectAnswers: incorrectAnswers[index]
+//         }));
+
+//         return questionObjects;
+
+//     } catch (error) {
+//         console.error('Error:', error);
+//     }
+// }
+
+// Función principal para cargar las preguntas desde la API y pintar la primera pregunta
+
+let aciertos = 0;  // Variable para contar aciertos
+let fallos = 0;    // Variable para contar fallos
+
+// Función para mezclar las respuestas
+
+function mezclarRespuestas(correctAnswer, incorrectAnswers) {
+    const allAnswers = [...incorrectAnswers, correctAnswer];
+    return allAnswers.sort(() => Math.random() - 0.5);  // Mezclar aleatoriamente
+}
+
+
+// Función para pintar las preguntas en el DOM
+
+function pintarPregunta(quizData, index) {
+    const preguntaElement = document.getElementById('pregunta');
+    const optionButtons = document.querySelectorAll('.option');
+
+    // Verificar si hay más preguntas
+    if (index >= quizData.length) {
+        mostrarResultadosFinales();  // Mostrar resultados al terminar
+        return;
+    }
+
+    // Obtenemos la pregunta y respuestas de la pregunta actual
+    const currentQuestion = quizData[index];
+    const { question, correctAnswer, incorrectAnswers } = currentQuestion;
+
+    // Mostramos la pregunta
+    preguntaElement.innerText = question;
+
+    // Mezclamos las respuestas
+    const respuestasMezcladas = mezclarRespuestas(correctAnswer, incorrectAnswers);
+
+    // Asignamos las respuestas mezcladas a los botones
+    optionButtons.forEach((button, idx) => {
+        button.innerText = respuestasMezcladas[idx];
+        button.onclick = () => verificarRespuesta(button.innerText, correctAnswer, quizData, index);
+    });
+}
+
+// Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
+function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
+    if (respuestaSeleccionada === correctAnswer) {
+        aciertos++;  // Incrementar aciertos si la respuesta es correcta
+    } else {
+        fallos++;  // Incrementar fallos si la respuesta es incorrecta
+    }
+
+    // Avanzar a la siguiente pregunta
+    pintarPregunta(quizData, currentIndex + 1);
+}
+
+// Función para mostrar los resultados finales al terminar el cuestionario
+function mostrarResultadosFinales() {
+    const resultadoElement = document.getElementById('resultado');
+    resultadoElement.innerHTML = `
+        <p>Has completado el cuestionario.</p>
+        <p>Aciertos: ${aciertos}</p>
+        <p>Fallos: ${fallos}</p>
+    `;
+}
+
+// Función principal para cargar las preguntas desde la API y pintar la primera pregunta
+async function getQuestions() {
     try {
         const response = await fetch(apiEasy);
 
@@ -35,126 +212,24 @@ async function getQuestionsEasy() {
             correctAnswers.push(item.correct_answer);
             incorrectAnswers.push(item.incorrect_answers);
         });
-
-        // Transformar los arrays en un array de objetos
+        
         const questionObjects = results.map((item, index) => ({
             question: questions[index],
             correctAnswer: correctAnswers[index],
             incorrectAnswers: incorrectAnswers[index]
         }));
 
-        return questionObjects;
+        // Pintamos la primera pregunta
+        pintarPregunta(questionObjects, 0);  
 
     } catch (error) {
         console.error('Error:', error);
     }
 }
 
-async function getQuestionsMedium() {
-    try {
-        const response = await fetch(apiMedium);
 
-        if (!response.ok) {
-            console.error('Error al leer la API');
-            throw new Error('Error en la respuesta de la API');
-        }
-
-        const data = await response.json();
-        const results = data.results;
-
-        let questions = [];
-        let correctAnswers = [];
-        let incorrectAnswers = [];
-
-        results.forEach(item => {
-            questions.push(item.question);
-            correctAnswers.push(item.correct_answer);
-            incorrectAnswers.push(item.incorrect_answers);
-        });
-
-        // Transformar los arrays en un array de objetos
-        const questionObjects = results.map((item, index) => ({
-            question: questions[index],
-            correctAnswer: correctAnswers[index],
-            incorrectAnswers: incorrectAnswers[index]
-        }));
-
-        return questionObjects;
-
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-async function getQuestionsHard() {
-    try {
-        const response = await fetch(apiHard);
-
-        if (!response.ok) {
-            console.error('Error al leer la API');
-            throw new Error('Error en la respuesta de la API');
-        }
-
-        const data = await response.json();
-        const results = data.results;
-
-        let questions = [];
-        let correctAnswers = [];
-        let incorrectAnswers = [];
-
-        results.forEach(item => {
-            questions.push(item.question);
-            correctAnswers.push(item.correct_answer);
-            incorrectAnswers.push(item.incorrect_answers);
-        });
-
-        // Transformar los arrays en un array de objetos
-        const questionObjects = results.map((item, index) => ({
-            question: questions[index],
-            correctAnswer: correctAnswers[index],
-            incorrectAnswers: incorrectAnswers[index]
-        }));
-
-        return questionObjects;
-
-    } catch (error) {
-        console.error('Error:', error);
-    }
-}
-
-//getQuestionsEasy().then(datos => console.log(datos));
-
-// getQuestionsMedium().then(datos => console.log(datos));
-
-// getQuestionsHard().then(datos => console.log(datos));
-
-
-
-async function printQuestions(questionObjects) {
-    await questionObjects;
-    return questionObjects
-}
-
-printQuestions().then(datos => console.log(datos))
-
-
-
-// const div = document.getElementById('quiz-box')
-// const titulo = document.getElementById('pregunta');
-// titulo.innerText = "hola";
-// div.appendChild(titulo);
-
-// for (let i = 0; i < 10; i++) {  // Bucle for que ocurre 3 veces
-
-//const div = document.getElementsByClassName('quiz-box')
-// const img = document.createElement('img');
-// const p = document.createElement('p');
-
-
-// div.appendChild(pregunta);  // Introduce un h3 --> div
-
+getQuestions();
 // ------------------------------------------------------------------------------------------------
-
 
 
 
@@ -273,3 +348,7 @@ function printGraphic() {
 // Poner comentado cómo será cuando venga de LocalStorage
 
 printGraphic();
+
+// Llamamos a la función al cargar la página
+
+
