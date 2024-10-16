@@ -62,7 +62,7 @@ li {
 }
 
 
-#start-btn,
+#start-btn1,
 .next-btn,
 .option,
 .play-again-btn {
@@ -75,7 +75,7 @@ li {
     background-color: var(--yellow);
     transition: transform .2s;
 }
-.start-btn2,
+#start-btn2,
 .next-btn,
 .option,
 .play-again-btn {
@@ -89,7 +89,7 @@ li {
     transition: transform .2s;
 }
 
-.start-btn3,
+#start-btn3,
 .next-btn,
 .option,
 .play-again-btn {

@@ -14,119 +14,8 @@ const apiEasy = "https://opentdb.com/api.php?amount=10&category=12&difficulty=ea
 const apiMedium = "https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple";
 const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple";
 
+
 //  // ------------------------------------------------------------------------------------------------------
-
-// // Funciones para recibir la información de las API y transformarla en objetos
-// // Easy
-// async function getQuestionsEasy() {
-//     try {
-//         const response = await fetch(apiEasy);
-
-//         if (!response.ok) {
-//             console.error('Error al leer la API');
-//             throw new Error('Error en la respuesta de la API');
-//         }
-
-//         const data = await response.json();
-//         const results = data.results;
-
-//         let questions = [];
-//         let correctAnswers = [];
-//         let incorrectAnswers = [];
-
-//         results.forEach(item => {
-//             questions.push(item.question);
-//             correctAnswers.push(item.correct_answer);
-//             incorrectAnswers.push(item.incorrect_answers);
-//         });
-
-//         // Transformar los arrays en un array de objetos
-//         const questionObjects = results.map((item, index) => ({
-//             question: questions[index],
-//             correctAnswer: correctAnswers[index],
-//             incorrectAnswers: incorrectAnswers[index]
-//         }));
-
-//         return questionObjects;
-
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-
-//     //printData(questionObjects);
-// }
-// // Medium
-// async function getQuestionsMedium() {
-//     try {
-//         const response = await fetch(apiMedium);
-
-//         if (!response.ok) {
-//             console.error('Error al leer la API');
-//             throw new Error('Error en la respuesta de la API');
-//         }
-
-//         const data = await response.json();
-//         const results = data.results;
-
-//         let questions = [];
-//         let correctAnswers = [];
-//         let incorrectAnswers = [];
-
-//         results.forEach(item => {
-//             questions.push(item.question);
-//             correctAnswers.push(item.correct_answer);
-//             incorrectAnswers.push(item.incorrect_answers);
-//         });
-
-//         // Transformar los arrays en un array de objetos
-//         const questionObjects = results.map((item, index) => ({
-//             question: questions[index],
-//             correctAnswer: correctAnswers[index],
-//             incorrectAnswers: incorrectAnswers[index]
-//         }));
-
-//         return questionObjects;
-
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
-// //Hard
-// async function getQuestionsHard() {
-//     try {
-//         const response = await fetch(apiHard);
-
-//         if (!response.ok) {
-//             console.error('Error al leer la API');
-//             throw new Error('Error en la respuesta de la API');
-//         }
-
-//         const data = await response.json();
-//         const results = data.results;
-
-//         let questions = [];
-//         let correctAnswers = [];
-//         let incorrectAnswers = [];
-
-//         results.forEach(item => {
-//             questions.push(item.question);
-//             correctAnswers.push(item.correct_answer);
-//             incorrectAnswers.push(item.incorrect_answers);
-//         });
-
-//         // Transformar los arrays en un array de objetos
-//         const questionObjects = results.map((item, index) => ({
-//             question: questions[index],
-//             correctAnswer: correctAnswers[index],
-//             incorrectAnswers: incorrectAnswers[index]
-//         }));
-
-//         return questionObjects;
-
-//     } catch (error) {
-//         console.error('Error:', error);
-//     }
-// }
 
 // ALMACENAR OBJETO EN WEB STORAGE
 
@@ -202,8 +91,6 @@ function pintarPregunta(quizData, index) {
     });
 }
 
-// Función para verificar si la respuesta es correcta
-
 // Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
 function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
 
@@ -221,33 +108,50 @@ function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, curr
 
 async function getQuestions() {
     try {
-        const response = await fetch(apiEasy);
+        // Hacer las llamadas a las APIs en paralelo usando Promise.all
+        const [responseEasy, responseMedium, responseHard] = await Promise.all([
+            fetch(apiEasy),
+            fetch(apiMedium),
+            fetch(apiHard)
+        ]);
 
-        if (!response.ok) {
-            console.error('Error al leer la API');
-            throw new Error('Error en la respuesta de la API');
+        // Verificar que todas las respuestas sean correctas
+        if (!responseEasy.ok || !responseMedium.ok || !responseHard.ok) {
+            console.error('Error al leer alguna de las APIs');
+            throw new Error('Error en la respuesta de alguna de las APIs');
         }
 
-        const data = await response.json();
-        const results = data.results;
+        // Parsear las respuestas a JSON
+        const dataEasy = await responseEasy.json();
+        const dataMedium = await responseMedium.json();
+        const dataHard = await responseHard.json();
+
+        // Combinar todas las preguntas de las tres APIs
+        const results = [
+            ...dataEasy.results,
+            ...dataMedium.results,
+            ...dataHard.results
+        ];
 
         let questions = [];
         let correctAnswers = [];
         let incorrectAnswers = [];
 
+        // Procesar los resultados combinados
         results.forEach(item => {
             questions.push(item.question);
             correctAnswers.push(item.correct_answer);
             incorrectAnswers.push(item.incorrect_answers);
         });
 
+        // Crear objetos de pregunta
         const questionObjects = results.map((item, index) => ({
             question: questions[index],
             correctAnswer: correctAnswers[index],
             incorrectAnswers: incorrectAnswers[index]
         }));
 
-        // Pintamos la primera pregunta
+        // Pintar la primera pregunta
         pintarPregunta(questionObjects, 0);
 
     } catch (error) {
@@ -256,6 +160,7 @@ async function getQuestions() {
 }
 
 getQuestions();
+
 
 // -------------------- EVENTOS ------------------------------------------------
 
@@ -273,11 +178,53 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Botón clicado!');
 
             // Redirigir a question.html cuando se hace clic en el botón
-            location.href = '../pages/question.html';
-             // Cambia la ruta si es necesario
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
         });
     } else {
         console.error('No se encontró el botón con ID start-btn');
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Seleccionar los botones usando sus IDs
+    let easyButton = document.getElementById('start-btn1'); // Botón para el nivel fácil
+    let mediumButton = document.getElementById('start-btn2'); // Botón para el nivel medio
+    let hardButton = document.getElementById('start-btn3'); // Botón para el nivel difícil
+
+    // Verificar si los botones existen
+    if (easyButton) {
+        easyButton.addEventListener('click', function () {
+            console.log('Botón Easy clicado!');
+            // Redirigir a question.html y cargar preguntas de la API Easy
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiEasy'); // Guarda la API a usar en localStorage
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn1');
+    }
+
+    if (mediumButton) {
+        mediumButton.addEventListener('click', function () {
+            console.log('Botón Medium clicado!');
+            // Redirigir a question.html y cargar preguntas de la API Medium
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiMedium'); // Guarda la API a usar en localStorage
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn2');
+    }
+
+
+    if (hardButton) {
+        hardButton.addEventListener('click', function () {
+            console.log('Botón Hard clicado!');
+            // Redirigir a question.html y cargar preguntas de la API Hard
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiHard'); // Guarda la API a usar en localStorage
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn3');
     }
 });
 
@@ -298,9 +245,10 @@ document.addEventListener("DOMContentLoaded", function () {
             location.href = '../index.html'; // Cambia la ruta si es necesario
         });
     } else {
-        console.error('No se encontró el botón con ID start-btn');
+        console.error('No se encontró el botón con ID play-again-btn');
     }
 });
+
 
 // ------------------------------------------------------------------------------------------------
 
