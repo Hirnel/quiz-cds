@@ -1,3 +1,4 @@
+
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
 if (!localStorage.getItem("Games")) {
@@ -273,4 +274,3 @@ async function getQuestions() {
 
 // Llamamos a la función al cargar la página
 getQuestions();
-
