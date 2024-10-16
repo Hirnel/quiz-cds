@@ -156,9 +156,6 @@ let game = {
 
 let dataResults = game.data;
 
-//Traer data local storage
-// Añadir
-// Volver a subir a local storage
 
 // Función para mezclar las respuestas
 
@@ -202,18 +199,6 @@ function pintarPregunta(quizData, index) {
         button.onclick = () => verificarRespuesta(button.innerText, correctAnswer, quizData, index);
     });
 }
-
-
-
-
-//  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
-// Acceder sólo al array para sumar puntuación
-
-
-
-
-
-
 
 
 // Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
@@ -391,7 +376,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // Poner comentado cómo será cuando venga de LocalStorage
 
-printGraphic();
+// printGraphic();
 
 // Llamamos a la función al cargar la página
+function printResult(){
+    let divScore = document.querySelector(".score");
+    divScore.innerHTML = `<h1>${games[games.length - 1].score}</h1>`;
 
+    
+}
+
+printResult()
