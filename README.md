@@ -4,6 +4,15 @@ Welcome to our **Music Quizz**, created as part of the **Fullstack Bootcamp** we
 
 You can view the live website here: [Music Quizz](https://deydre.github.io/quizz/)
 
+## ✨ The Team
+
+| Member     | GitHub                     |
+|------------|----------------------------------|
+| 🪈 Sergio  | [Sergio's GitHub ](https://deydre.github.io/quizz/)  |
+| 🎤 Cristian| [Cristian's GitHub](https://deydre.github.io/quizz/) |
+| 🪇 Deydre  | [Deydre's GitHub](https://deydre.github.io/quizz/)   |
+
+
 
 ## ✨ Features
 
@@ -20,13 +29,13 @@ You can view the live website here: [Music Quizz](https://deydre.github.io/quizz
 
 ```bash
 /
+
 ├── /pages            # Subpages such as 'About Me', 'Portfolio', etc.
 ├── /media            # Images, icons, and other assets
 ├── index.html        # Main landing page
 ├── script.js         # JS file
 └── styles.css        # CSS file
 ```
-
 
 
 ## 🚀 Technologies Used
@@ -37,24 +46,25 @@ You can view the live website here: [Music Quizz](https://deydre.github.io/quizz
 | <img src="https://upload.wikimedia.org/wikipedia/commons/6/62/CSS3_logo.svg" alt="CSS3 Logo" height="30"> | **CSS3**: To style the website and ensure responsive design.      |
 | <img src="https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png" alt="JavaScript Logo" height="30"> | **JavaScript**: To create interactive and dynamic elements, especially for the mobile menu and the form inside the contact section. |
 | <img src="https://img.icons8.com/m_sharp/200/FFFFFF/github.png" alt="GitHub Logo" height="30"> | **GitHub Pages**: For hosting the live version of the website.    |
+|
+
+
+## 🚀 APIS and libraries used
+
+| Logo                                                                                           | Description                                                        |
+|------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| <img src="https://opentdb.com/images/logo.png" alt="Open Trivia Database Logo" height="14"> | **Open Trivia Database**: A free-to-use API that provides a vast collection of trivia questions across various categories, enabling dynamic quiz creation and engagement.               |
+| <img src="https://chartist.dev/img/logo.svg" alt="Chartist Logo" height="30"> | **Chartist**: A flexible and simple charting library that allows for the creation of responsive, animated charts, enhancing the visual representation of data.      |
+| 
 
 
 
+# 🌱 Challenges Faced
 
-## 📜 How to View the Project Locally
+- We encountered complexities in organizing the team by phases, which hindered coordination and project progress.
+- The integration of the API presented technical challenges, especially in data integration and response handling.
+- ...
 
-1. Clone the repository to your local machine:
-
-   ```bash
-   git clone https://github.com/deydre/pagina-web-personal.git
-
-2. Open the index.html file in your browser.
-
-
-## 🌱 Challenges Faced
-- I found some complexity in creating the hamburger menu in CSS with Flexbox, but it was simple to animate in JS.
-- It was difficult to reorganize the project at the HTML and JS level when I moved the HTML files to the pages folder.
-- Validating the form with JS has been complicated when it comes to storing the inputs, labels, and clearly understanding what each thing is.
 
 ## 🛠️ Future Improvements
 
@@ -64,12 +74,4 @@ You can view the live website here: [Music Quizz](https://deydre.github.io/quizz
 - Portfolio / Project filtering by tag.
 
 
-<h1 align= "center"> ✨🐸 Thanks for stopping by! 🐸✨ </h1>
-
-<div align="center">
-
-  <img src="/media/hiria_dev.jpg" alt="A cat with sunglasses programming" height="280">
-  
-  <a href="https://github.com/Deydre"> ⚡✨ My GitHub ✨⚡</a>
-  
-</div>
+<h1 align= "center"> 🎷🎵 Thanks for stopping by! 🎵🎷 </h1>
