@@ -2,10 +2,9 @@
 //aseguramos de que haya siempre un item llamado Games
 let games = [];
 
-
 if (!localStorage.getItem("Games")) {
     localStorage.setItem("Games", JSON.stringify([]));
-}else{
+} else {
     games = JSON.parse(localStorage.getItem("Games"));
 }
 
@@ -130,6 +129,7 @@ const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=ha
 // }
 
 // ALMACENAR OBJETO EN WEB STORAGE
+
 function updateGames(games) {
     let localGames = JSON.parse(localStorage.getItem('Games'))
     localGames.push(games)
@@ -164,7 +164,6 @@ function mezclarRespuestas(correctAnswer, incorrectAnswers) {
     return allAnswers.sort(() => Math.random() - 0.5);  // Mezclar aleatoriamente
 }
 
-
 // Función para pintar las preguntas en el DOM
 
 function pintarPregunta(quizData, index) {
@@ -173,13 +172,16 @@ function pintarPregunta(quizData, index) {
 
     // Verificar si hay más preguntas
     if (index >= quizData.length) {
-        // mostrarResultadosFinales();  // Mostrar resultados al terminar
+
         // Almacenar objeto en array de objetos
         games.push(game)
         // Sumar puntuación
         game.score = dataResults.reduce((acc, current) => acc + current, 0,);
+        // Almacenamos el resultado en localSotreage
         updateGames(games);
+        // Cambiamos la ruta a results.html
         location.href = '../pages/results.html';
+
         return;
     }
 
@@ -200,32 +202,23 @@ function pintarPregunta(quizData, index) {
     });
 }
 
+// Función para verificar si la respuesta es correcta
 
 // Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
 function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
+
     if (respuestaSeleccionada === correctAnswer) {
-        dataResults.push(1)
+        dataResults.push(1)  // Añade 1 al array games
     } else {
-        dataResults.push(0)
+        dataResults.push(0) // Añade 0 al array games
     }
 
     // Avanzar a la siguiente pregunta
     pintarPregunta(quizData, currentIndex + 1);
 }
 
-console.log(dataResults)
-
-// // Función para mostrar los resultados finales al terminar el cuestionario
-// function mostrarResultadosFinales() {
-//     const resultadoElement = document.getElementById('resultado');
-//     resultadoElement.innerHTML = `
-//         <p>Has completado el cuestionario.</p>
-//         <p>Aciertos: ${aciertos}</p>
-//         <p>Fallos: ${fallos}</p>
-//     `;
-// }
-
 // Función principal para cargar las preguntas desde la API y pintar la primera pregunta
+
 async function getQuestions() {
     try {
         const response = await fetch(apiEasy);
@@ -262,10 +255,11 @@ async function getQuestions() {
     }
 }
 
-
 getQuestions();
 
-// EVENTOS
+// -------------------- EVENTOS ------------------------------------------------
+
+// BOTÓN DE TAKE THE QUIZZ
 
 document.addEventListener("DOMContentLoaded", function () {
     // Seleccionar el botón usando su ID
@@ -279,12 +273,15 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Botón clicado!');
 
             // Redirigir a question.html cuando se hace clic en el botón
-            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            location.href = '../pages/question.html';
+             // Cambia la ruta si es necesario
         });
     } else {
         console.error('No se encontró el botón con ID start-btn');
     }
 });
+
+// BOTÓN DE PLAY AGAIN
 
 document.addEventListener("DOMContentLoaded", function () {
     // Seleccionar el botón usando su ID
