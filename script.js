@@ -204,6 +204,7 @@ function pintarPregunta(quizData, index) {
 
 // Función para verificar si la respuesta es correcta
 
+// Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
 function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
 
     if (respuestaSeleccionada === correctAnswer) {
@@ -395,4 +396,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // printGraphic();
 
 // Llamamos a la función al cargar la página
+function printResult(){
+    let divScore = document.querySelector(".score");
+    divScore.innerHTML = `<h1>${games[games.length - 1].score}</h1>`;
 
+    
+}
+
+printResult()
