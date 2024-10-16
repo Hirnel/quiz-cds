@@ -1,7 +1,12 @@
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
+let games = [];
+
+
 if (!localStorage.getItem("Games")) {
     localStorage.setItem("Games", JSON.stringify([]));
+}else{
+    games = JSON.parse(localStorage.getItem("Games"));
 }
 
 // ----------------------------------------------------------------------------------------------------- 
@@ -126,11 +131,13 @@ const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=ha
 
 // ALMACENAR OBJETO EN WEB STORAGE
 function updateGames(games) {
+    let localGames = JSON.parse(localStorage.getItem('Games'))
+    localGames.push(games)
     localStorage.setItem("Games", JSON.stringify(games));
 }
 
 // Función principal para cargar las preguntas desde la API y pintar la primera pregunta
-let games = [];
+
 
 // Obtener fecha en formato Día/Mes/Hora
 let currentDate = new Date();
