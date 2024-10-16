@@ -295,13 +295,13 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log('Botón clicado!');
 
             // Redirigir a question.html cuando se hace clic en el botón
-            location.href = '../pages/question.html';
-             // Cambia la ruta si es necesario
+            location.href = '../index.html'; // Cambia la ruta si es necesario
         });
     } else {
-        console.error('No se encontró el botón con ID play-again-btn');
+        console.error('No se encontró el botón con ID start-btn');
     }
 });
+
 // ------------------------------------------------------------------------------------------------
 
 
