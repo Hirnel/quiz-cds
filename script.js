@@ -290,30 +290,16 @@ game.score = dataResults.reduce(
 console.log("Objeto con score sumado: ")
 console.log(game)
 
+// Almacenar objeto en array de objetos
+let games = [];
+games.push(game)
+
 // ALMACENAR OBJETO EN WEB STORAGE
 function updateGames(game) {
-    localStorage.setItem("Games", JSON.stringify(game));
+    localStorage.setItem("Games", JSON.stringify(games));
 }
 
 updateGames(game);
-
-// Objeto simulado de varias partidas
-let games = [{
-    date: "05/04/24",
-    data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
-    score: 7
-    },
-    {
-        date: "06/11/24",
-        data: [1, 1, 1, 1, 0, 1, 1, 1, 1, 1],
-        score: 9
-    },
-    {
-        date: "15/12/24",
-        data: [1, 1, 0, 0, 0, 1, 0, 0, 1, 1],
-        score: 5
-    },
-]
 
 
 // PINTAR GRÁFICA CON FECHA + SCORE
