@@ -1,4 +1,3 @@
-
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
 if (!localStorage.getItem("Games")) {
@@ -10,7 +9,6 @@ if (!localStorage.getItem("Games")) {
 const apiEasy = "https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple";
 const apiMedium = "https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple";
 const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple";
-
 
 //  // ------------------------------------------------------------------------------------------------------
 
@@ -229,6 +227,27 @@ async function getQuestions() {
 
 
 getQuestions();
+
+// EVENTOS
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Seleccionar el botón usando su ID
+    let button = document.getElementById('start-btn');
+
+    // Verificar si el botón existe
+    if (button) {
+        // Añadir un event listener al botón para ejecutar una función cuando se haga clic
+        button.addEventListener('click', function() {
+            // Usar console.log() para verificar que el evento click está ocurriendo
+            console.log('Botón clicado!');
+
+            // Redirigir a question.html cuando se hace clic en el botón
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+        });
+    } else {
+        console.error('No se encontró el botón con ID start-btn');
+    }
+});
 // ------------------------------------------------------------------------------------------------
 
 
@@ -350,5 +369,4 @@ function printGraphic() {
 printGraphic();
 
 // Llamamos a la función al cargar la página
-
 
