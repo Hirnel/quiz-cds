@@ -139,14 +139,15 @@ li {
     gap: 40px;
 }
 
+/* RESULTS.HTML */
 .result-box {
-    width: 800px;
     flex-direction: row;
     align-items: flex-start;
     flex-wrap: wrap;
     justify-content: center;
-    height: 100%;
-    gap: 40px
+    gap: 80px;
+    width: inherit;
+    padding: 40px 60px;
 }
 
 .result-text{
@@ -155,15 +156,26 @@ li {
     gap: 10px
 }
 
+.result-box > div:first-child {
+    width: 180px;
+    height: 180px;
+    border-radius: 100%;
+    background: var(--yellow);
+    border: 12px solid rgba(255, 255, 201, 0.37);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-box h1{
+    font-size: 58px;
+    color: var(--purple);
+}
+
 .play-again-btn{
     margin-top: 20px;
 }
 
-.score {
-    width: 200px;
-    height: 200px;
-    background: rgb(193, 193, 193);
-}
 
 .chart {
     height: 200px;
@@ -270,5 +282,9 @@ li {
     .logo {
         width: 70%;
     }
+
+    .result-box {
+        gap: 20px;
+    }  
 
 }
