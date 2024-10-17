@@ -63,7 +63,7 @@ li {
     font-size: 14px;
 }
 
-#fname, #user, #email, #password{
+#fname, #user, #email{
     border: 2px solid var(--purple);
     background-color: #fff3ce;
     border-radius: 8px;
