@@ -2,66 +2,29 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <!-- Tipografías añadidas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap"
-    rel="stylesheet">
-  <!-- Librerías de Chartist -->
-  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- Tipografías añadidas -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap" rel="stylesheet">
+    <!-- Librería de ChartJS -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Librería de iconos -->
+    <script src="https://kit.fontawesome.com/415eb65d7d.js" crossorigin="anonymous"></script>
+    <title>Document</title>
 </head>
 
 <body>
-  <header>
-    <img src="/media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
-  </header>
-  <div class="container-home">
-    <div class="content">
-      <div class="welcome-box">
+    <header>
+        <img src="/media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
+    </header>
+    <div class="container-home">
+      <div id="welcome-title">
+        <img src="media/arcade.gif" alt="" class="imgArcade">
         <h2>Welcome to the quizz!</h2>
-        <div class="content">
-          <h2>Crea tu perfil</h2>
-
-          <form id="contactForm">
-            <ul>
-              <li><label for="fname">Nombre:</label></li>
-              <input type="text" id="fname" name="fname" placeholder="Introduce nombre..." minlength="3" maxlenght="30"
-                required />
-
-              <li><label for="user">Nombre de Usuario:</label></li>
-              <input type="text" id="user" name="user" placeholder="Introduce nombre Usuario..." minlength="3"
-                maxlenght="30" required />
-
-              <li><label for="email">Email:</label></li>
-              <input type="email" id="email" name="email" placeholder="Ejem: maiu@gmail.com" />
-
-              <li><label for="password">Password:</label></li>
-              <input type="password" id="password" name="password" placeholder="Que nadie te vea 👀" required />
-
-              </select>
-              <div>
-                <label><input type="checkbox" id="accept" value="accept" name="accept" />
-                  Acepto los términos legales</label required>
-
-                <label for="spam"><input type="checkbox" id="spam" value="spam" name="spam" />
-                  Acepto recibir publicidad y ofertas</label>
-              </div>
-
-              <input type="submit" value="Enviar" />
-            </ul>
-          </form>
-        </div>
-        <img src="" alt="" id="imgPets">
-        <button id="start-btn1">Take to easy</button>
-        <button id="start-btn2">Medium difficulty</button>
-        <button id="start-btn3">You die</button>
+        <img src="media/arcade.gif" alt="" class="imgArcade">
       </div>
         <div class="content">  
             <div class="welcome-box">
@@ -117,14 +80,6 @@
         <a href="https://github.com/Hirnel/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
       </div>
     </footer>
-   <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-
-  <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-
     <script src="script.js"></script>
 </body>
 
