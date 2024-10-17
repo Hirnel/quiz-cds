@@ -41,7 +41,9 @@
 
               <li><label for="email">Email:</label></li>
               <input type="email" id="email" name="email" placeholder="Example: maiu@gmail.com" />
-
+              
+              <li><label for="password">Password:</label></li>
+              <input type="password" id="password" name="password" placeholder="Que nadie te vea 👀" required />
               <div>
                 <label><input type="checkbox" id="accept" value="accept" name="accept" />
                   I agree the conditions of use</label required>
@@ -64,9 +66,16 @@
         <div class="stats-list">
         </div>
       </div>
-    </div>
-  </div>
-  <script src="script.js"></script>
+    </footer>
+   <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+
+  <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
