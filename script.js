@@ -193,7 +193,7 @@ document.addEventListener("DOMContentLoaded", function () {
         easyButton.addEventListener('click', function () {
             console.log('Botón Easy clicado!');
             localStorage.setItem('apiUrl', apiEasy); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            location.href = './pages/question.html'; // Redirigir a la página de preguntas
         });
     }
 
@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function () {
         mediumButton.addEventListener('click', function () {
             console.log('Botón Medium clicado!');
             localStorage.setItem('apiUrl', apiMedium); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            location.href = './pages/question.html'; // Redirigir a la página de preguntas
         });
     }
 
@@ -209,7 +209,7 @@ document.addEventListener("DOMContentLoaded", function () {
         hardButton.addEventListener('click', function () {
             console.log('Botón Hard clicado!');
             localStorage.setItem('apiUrl', apiHard); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            location.href = './pages/question.html'; // Redirigir a la página de preguntas
         });
     }
 });
