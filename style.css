@@ -36,7 +36,7 @@ h2 {
 
 header {
     height: 10vh;
-    background: rgba(255, 255, 255, 0.652);
+    background: var(--purple);
     text-align: center;
     display: flex;
     align-items: center;
@@ -116,7 +116,7 @@ li {
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
-    padding: 60px 0px 120px 0px;
+    padding: 30px 0px 120px 0px;
 }
 
 .welcome-box,
@@ -133,6 +133,7 @@ li {
     gap: 20px;
     border: 4px dashed #e1ad01;
 }
+
 
 .quiz-box {
     width: 600px;
@@ -183,13 +184,21 @@ li {
 }
 
 .logo {
-    width: 460px;
+    height: 40px;
 }
 
-#imgPets {
-    height: 200px;
-    width: 100%;
-    background: rgb(193, 193, 193);
+#welcome-title{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+
+}
+
+.imgArcade {
+    width: 40px;
 }
 
 /* Preguntas Quizz */
@@ -276,10 +285,6 @@ li {
 
     .content {
         padding: 20px 24px 100px 24px;
-    }
-
-    .logo {
-        width: 70%;
     }
 
     .result-box {
