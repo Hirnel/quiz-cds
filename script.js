@@ -1,3 +1,5 @@
+//fire base guarda informacion en DataBase.
+/*
 const firebaseConfig = {
     apiKey: "AIzaSyBGtDiPeDF16NFSJ9oBL5zp5_DyfCIjQec",
     authDomain: "webquizcds.firebaseapp.com",
@@ -6,33 +8,25 @@ const firebaseConfig = {
     messagingSenderId: "539239302815",
     appId: "1:539239302815:web:3e743290d173ffa1dc04aa"
 };
-
-
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-
 const db = firebase.firestore();
-
 document.getElementById("contactForm").addEventListener("submit", function(event) {
     event.preventDefault(); // Evita que la página se recargue
-
     // Obtener los valores del formulario
     const nombre = document.getElementById("fname").value;
     const usuario = document.getElementById("user").value;
     const email = document.getElementById("email").value;
     const password = document.getElementById("password").value;
     const aceptoTerminos = document.getElementById("accept").checked; // Ver si aceptó los términos
-
     if (!aceptoTerminos) {
         alert("Debes aceptar los términos legales.");
         return;
     }
-
     // Registrar al usuario en Firebase Authentication
     firebase.auth().createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
             const user = userCredential.user;
-
             // Guardar información adicional en Firestore
             db.collection("users").doc(user.uid).set({
                 nombre: nombre,
@@ -55,6 +49,8 @@ document.getElementById("contactForm").addEventListener("submit", function(event
             alert("Error: " + error.message);
         });
 });
+*/
+// ----------------------------------------------------------------------------------------------------- 
 
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
@@ -63,9 +59,8 @@ let games = [];
 if (!localStorage.getItem("Games")) {
     localStorage.setItem("Games", JSON.stringify([]));
 } else {
-    games = JSON.parse(localStorage.getItem("Games")) || [];
+    games = JSON.parse(localStorage.getItem("Games"));
 }
-
 
 // ----------------------------------------------------------------------------------------------------- 
 // PARAMETRIZAR
@@ -78,12 +73,11 @@ const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=ha
 
 // ALMACENAR OBJETO EN WEB STORAGE
 
-function updateGames(game) {
-    let localGames = JSON.parse(localStorage.getItem('Games')) || [];
-    localGames.push(game);
-    localStorage.setItem("Games", JSON.stringify(localGames));
+function updateGames(games) {
+    let localGames = JSON.parse(localStorage.getItem('Games'))
+    localGames.push(games)
+    localStorage.setItem("Games", JSON.stringify(games));
 }
-
 
 // Función principal para cargar las preguntas desde la API y pintar la primera pregunta
 
@@ -93,16 +87,17 @@ let currentDate = new Date();
 const day = currentDate.getUTCDate();
 const month = currentDate.getUTCMonth() + 1;
 const year = currentDate.getUTCFullYear();
+// Convertir a String
 let dateString = `${day}/${month}/${year}`;
 
+// OBJETO CON FECHA Y RESULTADOS
 let game = {
-    date: dateString,  // Fecha actual
-    data: [],          // Se llenará con 1 o 0 según si las respuestas son correctas o incorrectas
-    score: Infinity    // Se calculará una vez que termine el quiz
+    date: dateString,
+    data: [],
+    score: Infinity // Calcular la puntuación después de crear el objeto
 };
 
-let dataResults = game.data;  // Este será el array donde se guardan los resultados de las respuestas
-
+let dataResults = game.data;
 
 
 // Función para mezclar las respuestas
@@ -112,7 +107,6 @@ function mezclarRespuestas(correctAnswer, incorrectAnswers) {
     return allAnswers.sort(() => Math.random() - 0.5);  // Mezclar aleatoriamente
 }
 
-
 // Función para pintar las preguntas en el DOM
 
 function pintarPregunta(quizData, index) {
@@ -121,12 +115,16 @@ function pintarPregunta(quizData, index) {
 
     // Verificar si hay más preguntas
     if (index >= quizData.length) {
-        // Almacenar el juego completo
-        game.score = dataResults.reduce((acc, current) => acc + current, 0); // Calcular la puntuación final
-        updateGames(game); // Guardar el juego actual en localStorage
 
-        // Redirigir a la página de resultados
+        // Almacenar objeto en array de objetos
+        games.push(game)
+        // Sumar puntuación
+        game.score = dataResults.reduce((acc, current) => acc + current, 0,);
+        // Almacenamos el resultado en localSotreage
+        updateGames(games);
+        // Cambiamos la ruta a results.html
         location.href = '../pages/results.html';
+
         return;
     }
 
@@ -149,10 +147,11 @@ function pintarPregunta(quizData, index) {
 
 // Función para verificar si la respuesta seleccionada es correcta y avanzar a la siguiente pregunta
 function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, currentIndex) {
+
     if (respuestaSeleccionada === correctAnswer) {
-        dataResults.push(1);  // Añade 1 al array de resultados
+        dataResults.push(1)  // Añade 1 al array games
     } else {
-        dataResults.push(0);  // Añade 0 al array de resultados
+        dataResults.push(0) // Añade 0 al array games
     }
 
     // Avanzar a la siguiente pregunta
@@ -163,33 +162,36 @@ function verificarRespuesta(respuestaSeleccionada, correctAnswer, quizData, curr
 
 async function getQuestions() {
     try {
-        // Obtiene la URL de la API desde el localStorage
-        const apiUrl = localStorage.getItem('apiUrl');
+        // Hacer las llamadas a las APIs en paralelo usando Promise.all
+        const [responseEasy, responseMedium, responseHard] = await Promise.all([
+            fetch(apiEasy),
+            fetch(apiMedium),
+            fetch(apiHard)
+        ]);
 
-        if (!apiUrl) {
-            throw new Error("No se encontró ninguna URL de API en localStorage");
+        // Verificar que todas las respuestas sean correctas
+        if (!responseEasy.ok || !responseMedium.ok || !responseHard.ok) {
+            console.error('Error al leer alguna de las APIs');
+            throw new Error('Error en la respuesta de alguna de las APIs');
         }
 
-        // Hacer la llamada a la API correspondiente
-        const response = await fetch(apiUrl);
+        // Parsear las respuestas a JSON
+        const dataEasy = await responseEasy.json();
+        const dataMedium = await responseMedium.json();
+        const dataHard = await responseHard.json();
 
-        // Verificar si la respuesta es correcta
-        if (!response.ok) {
-            console.error('Error al leer la API');
-            throw new Error('Error en la respuesta de la API');
-        }
-
-        // Parsear la respuesta a JSON
-        const data = await response.json();
-
-        // Procesar los resultados de las preguntas
-        const results = data.results;
+        // Combinar todas las preguntas de las tres APIs
+        const results = [
+            ...dataEasy.results,
+            ...dataMedium.results,
+            ...dataHard.results
+        ];
 
         let questions = [];
         let correctAnswers = [];
         let incorrectAnswers = [];
 
-        // Procesar los resultados
+        // Procesar los resultados combinados
         results.forEach(item => {
             questions.push(item.question);
             correctAnswers.push(item.correct_answer);
@@ -211,12 +213,7 @@ async function getQuestions() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    getQuestions(); // Llama a la función cuando la página de preguntas esté cargada
-});
-
-
-
+getQuestions();
 
 
 // -------------------- EVENTOS ------------------------------------------------
@@ -237,6 +234,8 @@ document.addEventListener("DOMContentLoaded", function () {
             // Redirigir a question.html cuando se hace clic en el botón
             location.href = '../pages/question.html'; // Cambia la ruta si es necesario
         });
+    } else {
+        console.error('No se encontró el botón con ID start-btn');
     }
 });
 
@@ -251,25 +250,35 @@ document.addEventListener("DOMContentLoaded", function () {
     if (easyButton) {
         easyButton.addEventListener('click', function () {
             console.log('Botón Easy clicado!');
-            localStorage.setItem('apiUrl', apiEasy); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            // Redirigir a question.html y cargar preguntas de la API Easy
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiEasy'); // Guarda la API a usar en localStorage
         });
+    } else {
+        console.error('No se encontró el botón con ID start-btn1');
     }
 
     if (mediumButton) {
         mediumButton.addEventListener('click', function () {
             console.log('Botón Medium clicado!');
-            localStorage.setItem('apiUrl', apiMedium); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            // Redirigir a question.html y cargar preguntas de la API Medium
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiMedium'); // Guarda la API a usar en localStorage
         });
+    } else {
+        console.error('No se encontró el botón con ID start-btn2');
     }
+
 
     if (hardButton) {
         hardButton.addEventListener('click', function () {
             console.log('Botón Hard clicado!');
-            localStorage.setItem('apiUrl', apiHard); // Guarda la API a usar
-            location.href = '../pages/question.html'; // Redirigir a la página de preguntas
+            // Redirigir a question.html y cargar preguntas de la API Hard
+            location.href = '../pages/question.html'; // Cambia la ruta si es necesario
+            localStorage.setItem('apiUrl', 'apiHard'); // Guarda la API a usar en localStorage
         });
+    } else {
+        console.error('No se encontró el botón con ID start-btn3');
     }
 });
 
@@ -289,73 +298,111 @@ document.addEventListener("DOMContentLoaded", function () {
             // Redirigir a question.html cuando se hace clic en el botón
             location.href = '../index.html'; // Cambia la ruta si es necesario
         });
+    } else {
+        console.error('No se encontró el botón con ID play-again-btn');
     }
 });
 
 
 // ------------------------------------------------------------------------------------------------
 
-// // Pintar gráfica con fecha + score
-function printGraphic() {
 
-    let arrayFechas = []; // Eje Y
-    games.forEach(game => arrayFechas.push(game.date))
 
-    let arrayScores = []; // Eje X
-    games.forEach(game => arrayScores.push(game.score))
+// Conseguir con 10 preguntas nuestras, guardadas en un array de objetos, se pueda jugar a nuestro Quiz. [{..},{..},{..}...{..}]
 
-    const ctx = document.getElementById('chart');
 
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: arrayFechas,
-            datasets: [{
-                label: 'Puntuación por partida',
-                data: arrayScores,
-                fill: false,
-                borderColor: '#540D6E',
-                tension: 0.1,
-                fill: false,
-            }]
-        },
-        options: {
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    max: 10,
-                    beginAtZero: true
-                }
-            },
-        }
-    });
 
-    for (let i = 0; i < arrayFechas.length; i++) {
-        let statsList = document.querySelector(".stats-list");
-        statsList.innerHTML += `
-        <section class="card">
-            <article>
-                <h3>GAME ${i + 1}</h3>
-            </article>
-            <article>
-                <p>Date: ${arrayFechas[i]}</p>
-                <p>Score: ${arrayScores[i]}</p>
-            </article>
-        </section>
-        `     
-    }   
-}
+// Mostrar en la Home con una gráfica los resultados de las últimas partidas jugadas (leer puntuaciones de LocalStorage). Representar Fecha(eje X) vs Puntuación(eje Y)
 
-// Función para imprimir resultado
+
+// Almacenar la puntuación de cada partida en un array de objetos [{..},{..},{..}...{..}] en Local Storage. Guardar puntuación y fecha en cada objeto del array
+
+// // Obtener fecha en formato Día/Mes/Hora
+// let currentDate = new Date();
+// const day = currentDate.getUTCDate();
+// const month = currentDate.getUTCMonth() + 1;
+// const year = currentDate.getUTCFullYear();
+// // Convertir a String
+// let dateString = `${day}/${month}/${year}`;
+
+// // OBJETO CON FECHA Y RESULTADOS
+// let game = {
+//     date: dateString,
+//     data: [0, 1, 1, 1, 0, 1, 1, 1, 0, 1],
+//     score: Infinity // Calcular la puntuación después de crear el objeto
+// };
+// console.log("Objeto sin sumar score: ")
+// console.log(game)
+
+// //  SUMAR PUNTUACIÓN E INTRODUCIR EN EL OBJETO
+// // Acceder sólo al array para sumar puntuación
+// let dataResults = game.data;
+// console.log("Array de aciertos dentro del objeto: ")
+// console.log(dataResults)
+
+// // Sumar puntuación
+// game.score = dataResults.reduce(
+//     (acc, current) => acc + current, 0,);
+// console.log("Objeto con score sumado: ")
+// console.log(game)
+
+// // Almacenar objeto en array de objetos
+
+// games.push(game)
+// console.log(games)
+// // ALMACENAR OBJETO EN WEB STORAGE
+// function updateGames(games) {
+//     localStorage.setItem("Games", JSON.stringify(games));
+// }
+
+// updateGames(games);
+
+
+// // PINTAR GRÁFICA CON FECHA + SCORE
+// let arrayFechas = []; // Eje Y
+// games.forEach(game => arrayFechas.push(game.date))
+
+// let arrayScores = []; // Eje X
+// games.forEach(game => arrayScores.push(game.score))
+
+// console.log(arrayFechas, arrayScores)
+
+// function printGraphic() {
+
+//     const ctx = document.getElementById('chart');
+
+//     new Chart(ctx, {
+//         type: 'line',
+//         data: {
+//             labels: arrayFechas,
+//             datasets: [{
+//                 label: 'My First Dataset',
+//                 data: arrayScores,
+//                 fill: false,
+//                 borderColor: 'rgb(75, 192, 192)',
+//                 tension: 0.1
+//             }]
+//         },
+//         options: {
+//             scales: {
+//                 y: {
+//                     beginAtZero: true
+//                 }
+//             }
+//         }
+//     });
+// }
+
+// Poner comentado cómo será cuando venga de LocalStorage
+
+// printGraphic();
+
+// Llamamos a la función al cargar la página
 function printResult() {
     let divScore = document.querySelector(".score");
     divScore.innerHTML = `<h1>${games[games.length - 1].score}</h1>`;
-}
-// Si estamos en results.html, imprimir resultado
-if (location.href === 'http://127.0.0.1:5501/pages/results.html') {
-    printResult();
-    // Si estamos en index.html, imprimir gráfica
-} else if (location.href === 'http://127.0.0.1:5501/index.html') {
-    printGraphic();
+
+
 }
 
+printResult()
