@@ -9,10 +9,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap" rel="stylesheet">
-    <!-- Librerías de Chartist -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
-    <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+    <!-- Librería de ChartJS -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Librería de iconos -->
+    <script src="https://kit.fontawesome.com/415eb65d7d.js" crossorigin="anonymous"></script>
     <title>Document</title>
 </head>
 
@@ -21,9 +21,13 @@
         <img src="/media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
     </header>
     <div class="container-home">
-        <div class="content">
+      <div id="welcome-title">
+        <img src="media/arcade.gif" alt="" class="imgArcade">
+        <h2>Welcome to the quizz!</h2>
+        <img src="media/arcade.gif" alt="" class="imgArcade">
+      </div>
+        <div class="content">  
             <div class="welcome-box">
-                <h2>Welcome to the quizz!</h2>
                 <div class="content">
                     <h2>Crea tu perfil</h2>
               
@@ -53,7 +57,6 @@
                       </ul>
                     </form>
                   </div>
-                <img src="" alt="" id="imgPets">
                 <button id="start-btn1">Take to easy</button>
                 <button id="start-btn2">Medium difficulty</button>
                 <button id="start-btn3">You die</button>
@@ -62,22 +65,20 @@
                 <h2>Your stats</h2>
                 <div><canvas id="chart"></canvas></div>
                 <div class="stats-list">
-                    <ul>
-                        <li><strong>8 aciertos</strong></li>
-                        <li><strong>1 aciertos</strong></li>
-                        <li><strong>6 aciertos</strong></li>
-                        <li><strong>0 aciertos</strong></li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
 
-
-
-    <!-- CAMBIOS: Añadido Footer para ubicar a nivel CSS -->
     <footer>
-        <p>Texto de prueba</p>
+      <div class="footer-left">
+        <span class="usuario">Usuario: Juan Pérez</span>
+      </div>
+      <div class="enlaces-git">
+        <a href="https://github.com/SortegaG/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+        <a href="https://github.com/Deydre/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+        <a href="https://github.com/Hirnel/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+      </div>
     </footer>
     <script src="script.js"></script>
 </body>
