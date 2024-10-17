@@ -295,10 +295,10 @@ function printResult() {
     divScore.innerHTML = `<h1>${games[games.length - 1].score}</h1>`;
 }
 // Si estamos en results.html, imprimir resultado
-if (location.href === 'http://127.0.0.1:5501/pages/results.html') {
+if (document.querySelector(".score")) {
     printResult();
     // Si estamos en index.html, imprimir gráfica
-} else if (location.href === 'http://127.0.0.1:5501/index.html') {
+} else if (document.querySelector(".stats-list")) {
     printGraphic();
 }
 
