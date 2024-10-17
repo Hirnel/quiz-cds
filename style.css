@@ -22,8 +22,8 @@ body {
 
 h1,
 h2,
-button, .play-again-btn {
-    font-family: "Pixelify Sans", sans-serif;
+button {
+    font-family: 'Tiny5', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 h1 {
@@ -41,7 +41,6 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
 }
 
 footer {
@@ -57,39 +56,11 @@ footer {
     width: 100%;
 }
 
-
 li {
     list-style: none;
     font-size: 14px;
 }
 
-#fname, #user, #email{
-    border: 2px solid var(--purple);
-    background-color: #fff3ce;
-    border-radius: 8px;
-    padding: 8px;
-    box-shadow: none;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-#email{
-    margin-bottom: 24px;
-}
-
-#sendInfo{
-    margin-top: 20px;
-}
-
-ul div{
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-ul div label{
-    font-size: 14px;
-}
 
 #start-btn1,
 .next-btn,
@@ -132,31 +103,9 @@ ul div label{
     transition: transform .2s;
 }
 
-#start-btn1:hover{
-    background-color: #ffe079;
-    transform: scale(1.1);
-    cursor: pointer;
-    color: black;
-}
-
-#start-btn2:hover{
-    background-color: #ff6788;
-    transform: scale(1.1);
-    cursor: pointer;
-    color: black;
-}
-
-#start-btn3:hover{
-    background-color: #8a2cac;
-    transform: scale(1.1);
-    cursor: pointer;
-    color: black;
-}
-
-
 #start-btn:hover,
-.next-btn:hover, .play-again-btn:hover {
-    color: rgb(31, 31, 31);
+.next-btn:hover {
+    color: white;
     background-color: var(--red);
     transform: scale(1.1);
     cursor: pointer;
@@ -167,7 +116,7 @@ ul div label{
     flex-wrap: wrap;
     gap: 30px;
     justify-content: center;
-    padding: 30px 0px;
+    padding: 30px 0px 120px 0px;
 }
 
 .welcome-box,
@@ -238,6 +187,16 @@ ul div label{
     height: 40px;
 }
 
+#welcome-title{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+
+}
+
 .imgArcade {
     width: 40px;
 }
@@ -248,21 +207,20 @@ ul div label{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 24px;
-    margin-bottom: 20px;
+    gap: 30px;
 }
 
 .options div {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-    gap: 24px;
+    gap: 30px;
 }
 
 .option {
     font-size: 28px;
-    width: 240px;
-    text-align: center;
+    padding: 30px 80px;
+    width: auto;
 }
 
 .option1 {
@@ -350,7 +308,7 @@ ul div label{
     }
 
     .content {
-        padding: 20px 24px;
+        padding: 20px 24px 100px 24px;
     }
 
     .result-box {

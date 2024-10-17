@@ -9,62 +9,112 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
-  <!-- Librería de ChartJS -->
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900&family=Tiny5&display=swap"
+    rel="stylesheet">
+  <!-- Librerías de Chartist -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css">
+  <script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <!-- Librería de iconos -->
-  <script src="https://kit.fontawesome.com/415eb65d7d.js" crossorigin="anonymous"></script>
   <title>Document</title>
 </head>
 
 <body>
   <header>
-    <img src="media/arcade.gif" alt="" class="imgArcade">
     <img src="/media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
-    <img src="media/arcade.gif" alt="" class="imgArcade">
   </header>
   <div class="container-home">
     <div class="content">
       <div class="welcome-box">
+        <h2>Welcome to the quizz!</h2>
         <div class="content">
-          <h2>Create your user</h2>
+          <h2>Crea tu perfil</h2>
+
           <form id="contactForm">
             <ul>
-              <li><label for="fname">Name:</label></li>
-              <input type="text" id="fname" name="fname" placeholder="Introduce your name..." minlength="3" maxlenght="30"
+              <li><label for="fname">Nombre:</label></li>
+              <input type="text" id="fname" name="fname" placeholder="Introduce nombre..." minlength="3" maxlenght="30"
                 required />
 
-              <li><label for="user">Username:</label></li>
-              <input type="text" id="user" name="user" placeholder="Introduce your username..." minlength="3"
+              <li><label for="user">Nombre de Usuario:</label></li>
+              <input type="text" id="user" name="user" placeholder="Introduce nombre Usuario..." minlength="3"
                 maxlenght="30" required />
 
               <li><label for="email">Email:</label></li>
-              <input type="email" id="email" name="email" placeholder="Example: maiu@gmail.com" />
-              
+              <input type="email" id="email" name="email" placeholder="Ejem: maiu@gmail.com" />
+
               <li><label for="password">Password:</label></li>
               <input type="password" id="password" name="password" placeholder="Que nadie te vea 👀" required />
+
+              </select>
               <div>
                 <label><input type="checkbox" id="accept" value="accept" name="accept" />
-                  I agree the conditions of use</label required>
+                  Acepto los términos legales</label required>
 
                 <label for="spam"><input type="checkbox" id="spam" value="spam" name="spam" />
-                  I agree to receive add advertisings and offers </label>
+                  Acepto recibir publicidad y ofertas</label>
               </div>
-              <input type="submit" value="Submit" id="sendInfo" class="play-again-btn" />
+
+              <input type="submit" value="Enviar" />
             </ul>
           </form>
         </div>
-        <h2>Difficulty</h2>
+        <img src="" alt="" id="imgPets">
         <button id="start-btn1">Take to easy</button>
         <button id="start-btn2">Medium difficulty</button>
         <button id="start-btn3">You die</button>
       </div>
-      <div class="stats-box">
-        <h2>Your stats</h2>
-        <div><canvas id="chart"></canvas></div>
-        <div class="stats-list">
+        <div class="content">  
+            <div class="welcome-box">
+                <div class="content">
+                    <h2>Crea tu perfil</h2>
+              
+                    <form id="contactForm">
+                      <ul>
+                        <li><label for="fname">Nombre:</label></li>
+                        <input type="text" id="fname" name="fname" placeholder="Introduce nombre..." minlength="3" maxlenght="30"
+                          required />
+              
+                        <li><label for="user">Nombre de Usuario:</label></li>
+                        <input type="text" id="user" name="user" placeholder="Introduce nombre Usuario..." minlength="3" maxlenght="30"
+                          required />
+              
+                        <li><label for="email">Email:</label></li>
+                        <input type="email" id="email" name="email" placeholder="Ejem: maiu@gmail.com" />
+              
+                        </select>
+                        <div>
+                          <label ><input type="checkbox" id="accept" value="accept" name="accept" />
+                            Acepto los términos legales</label required>
+              
+                          <label for="spam"><input type="checkbox" id="spam" value="spam" name="spam" />
+                            Acepto recibir publicidad y ofertas</label>
+                        </div>
+              
+                        <input type="submit" value="Enviar" />
+                      </ul>
+                    </form>
+                  </div>
+                <button id="start-btn1">Take to easy</button>
+                <button id="start-btn2">Medium difficulty</button>
+                <button id="start-btn3">You die</button>
+            </div>
+            <div class="stats-box">
+                <h2>Your stats</h2>
+                <div><canvas id="chart"></canvas></div>
+                <div class="stats-list">
+                </div>
+            </div>
         </div>
+    </div>
+
+    <footer>
+      <div class="footer-left">
+        <span class="usuario">Usuario: Juan Pérez</span>
+      </div>
+      <div class="enlaces-git">
+        <a href="https://github.com/SortegaG/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+        <a href="https://github.com/Deydre/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
+        <a href="https://github.com/Hirnel/" target="_blank"><i class="fa-brands fa-square-github"></i></a>
       </div>
     </footer>
    <!-- The core Firebase JS SDK is always required and must be listed first -->
