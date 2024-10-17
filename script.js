@@ -265,15 +265,30 @@ function printGraphic() {
             maintainAspectRatio: false,
             scales: {
                 y: {
+                    max: 10,
                     beginAtZero: true
                 }
             },
-            layout:{
-                
-            }
         }
     });
+
+    for (let i = 0; i < arrayFechas.length; i++) {
+        let statsList = document.querySelector(".stats-list");
+        statsList.innerHTML += `
+        <section class="card">
+            <article>
+                <h3>GAME ${i + 1}</h3>
+            </article>
+            <article>
+                <p>Date: ${arrayFechas[i]}</p>
+                <p>Score: ${arrayScores[i]}</p>
+            </article>
+        </section>
+        `     
+    }   
 }
+
+
 
 // Función para imprimir resultado
 function printResult() {
