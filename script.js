@@ -12,7 +12,7 @@ if (!localStorage.getItem("Games")) {
 // ----------------------------------------------------------------------------------------------------- 
 // PARAMETRIZAR
 const apiEasy = "https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple";
-const apiMedium = "https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple";
+const apiMedium ="https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple";
 const apiHard = "https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple";
 
 
@@ -192,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (easyButton) {
         easyButton.addEventListener('click', function () {
             console.log('Botón Easy clicado!');
-            localStorage.setItem('apiUrl', 'https://opentdb.com/api.php?amount=10&category=12&difficulty=easy&type=multiple'); // Guarda la API a usar
+            localStorage.setItem('apiUrl', apiEasy); // Guarda la API a usar
             location.href = '../pages/question.html'; // Redirigir a la página de preguntas
         });
     }
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (mediumButton) {
         mediumButton.addEventListener('click', function () {
             console.log('Botón Medium clicado!');
-            localStorage.setItem('apiUrl', 'https://opentdb.com/api.php?amount=10&category=12&difficulty=medium&type=multiple'); // Guarda la API a usar
+            localStorage.setItem('apiUrl', apiMedium); // Guarda la API a usar
             location.href = '../pages/question.html'; // Redirigir a la página de preguntas
         });
     }
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
     if (hardButton) {
         hardButton.addEventListener('click', function () {
             console.log('Botón Hard clicado!');
-            localStorage.setItem('apiUrl', 'https://opentdb.com/api.php?amount=10&category=12&difficulty=hard&type=multiple'); // Guarda la API a usar
+            localStorage.setItem('apiUrl', apiHard); // Guarda la API a usar
             location.href = '../pages/question.html'; // Redirigir a la página de preguntas
         });
     }
