@@ -1,61 +1,3 @@
-const firebaseConfig = {
-    apiKey: "AIzaSyBGtDiPeDF16NFSJ9oBL5zp5_DyfCIjQec",
-    authDomain: "webquizcds.firebaseapp.com",
-    projectId: "webquizcds",
-    storageBucket: "webquizcds.appspot.com",
-    messagingSenderId: "539239302815",
-    appId: "1:539239302815:web:3e743290d173ffa1dc04aa"
-};
-
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-const db = firebase.firestore();
-
-document.getElementById("contactForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Evita que la página se recargue
-
-    // Obtener los valores del formulario
-    const nombre = document.getElementById("fname").value;
-    const usuario = document.getElementById("user").value;
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
-    const aceptoTerminos = document.getElementById("accept").checked; // Ver si aceptó los términos
-
-    if (!aceptoTerminos) {
-        alert("Debes aceptar los términos legales.");
-        return;
-    }
-
-    // Registrar al usuario en Firebase Authentication
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-            const user = userCredential.user;
-
-            // Guardar información adicional en Firestore
-            db.collection("users").doc(user.uid).set({
-                nombre: nombre,
-                usuario: usuario,
-                email: email,
-                personalScore: 0, // Inicializar el personalScore en 0
-                globalScore: 0    // Inicializar el globalScore en 0
-            })
-            .then(() => {
-                console.log("Usuario registrado correctamente y datos guardados.");
-                alert("Perfil creado exitosamente.");
-            })
-            .catch((error) => {
-                console.error("Error al guardar datos en Firestore: ", error);
-                alert("Error al crear el perfil.");
-            });
-        })
-        .catch((error) => {
-            console.error("Error al registrar el usuario: ", error);
-            alert("Error: " + error.message);
-        });
-});
-
 // Si el array de localStorage existe y es mayor que 0, no borrar 
 //aseguramos de que haya siempre un item llamado Games
 let games = [];
@@ -345,6 +287,8 @@ function printGraphic() {
         `     
     }   
 }
+
+
 
 // Función para imprimir resultado
 function printResult() {
