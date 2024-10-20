@@ -2,15 +2,15 @@
 <html lang="es">
 
 <head>
+  <!-- Etiqueta meta charset UTF-8 -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="style.css">
   <!-- Tipografías añadidas -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
   <!-- Librería de ChartJS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <!-- Librería de iconos -->
@@ -24,16 +24,16 @@
     <img src="media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
     <img src="media/arcade.gif" alt="" class="imgArcade">
   </header>
-  <div class="container-home">
-    <div class="content">
-      <div class="welcome-box">
+  <main class="container-home">
+    <section class="content">
+      <article class="welcome-box">
         <div class="content">
           <h2>Create your user</h2>
           <form id="contactForm">
             <ul>
               <li><label for="fname">Name:</label></li>
-              <input type="text" id="fname" name="fname" placeholder="Introduce your name..." minlength="3" maxlenght="30"
-                required />
+              <input type="text" id="fname" name="fname" placeholder="Introduce your name..." minlength="3"
+                maxlenght="30" required />
 
               <li><label for="user">Username:</label></li>
               <input type="text" id="user" name="user" placeholder="Introduce your username..." minlength="3"
@@ -42,7 +42,8 @@
               <li><label for="email">Email:</label></li>
               <input type="email" id="email" name="email" placeholder="Example: maiu@gmail.com" />
 
-              <li><label for="password">Password:</label></li> <input type="password" id="password" name="password" placeholder="let no one see you 👀" required />
+              <li><label for="password">Password:</label></li> <input type="password" id="password" name="password"
+                placeholder="let no one see you 👀" required />
 
               <div>
                 <label><input type="checkbox" id="accept" value="accept" name="accept" />
@@ -59,15 +60,18 @@
         <button id="start-btn1">Take to easy</button>
         <button id="start-btn2">Medium difficulty</button>
         <button id="start-btn3">You die</button>
-      </div>
-      <div class="stats-box">
-        <h2>Your stats</h2>
-        <div><canvas id="chart"></canvas></div>
-        <div class="stats-list">
-        </div>
-      </div>
-    </div>
-  </div>
+      </article>
+      <article class="stats-box">
+        <header>
+          <h2>Your stats</h2>
+        </header>
+        <figure>
+          <canvas id="chart"></canvas>
+        </figure>
+        <section class="stats-list"></section>
+      </article>
+    </section>
+  </main>
   <script src="script.js"></script>
 </body>
 

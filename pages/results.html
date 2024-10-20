@@ -2,14 +2,14 @@
 <html lang="es">
 
 <head>
+    <!-- Etiqueta meta charset UTF-8 -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
     <!-- Tipografías añadidas -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800;900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap" rel="stylesheet">
     <!-- Librería de iconos -->
     <script src="https://kit.fontawesome.com/415eb65d7d.js" crossorigin="anonymous"></script>
@@ -18,26 +18,30 @@
 
 <body>
     <header>
-    <img src="../media/arcade.gif" alt="" class="imgArcade">
-    <img src="../media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
-    <img src="../media/arcade.gif" alt="" class="imgArcade">
-  </header>
-    <div class="content">
-        <div class="result-box">
-            <!-- CAMBIOS: Añadidos divs para cuadrar el resultado -->
-            <div>
-                <div class="score">
+        <img src="../media/arcade.gif" alt="" class="imgArcade">
+        <img src="../media/Logo_Super_Music_Quizz.png" alt="Logo Super Music Quizz" class="logo">
+        <img src="../media/arcade.gif" alt="" class="imgArcade">
+    </header>
+    <main class="content">
+        <section class="result-box">
+            <!-- Sección para el resultado del puntaje -->
+            <article class="score-box">
+                <div class="score"></div>
+                <div class="total">
+                    <h1>/10</h1>
                 </div>
-                <div class="total"><h1>/10</h1></div>
-            </div>
-            
-            <div class="result-text">
-                <h2>Here are your results!</h2>
+            </article>
+    
+            <!-- Sección para el texto del resultado y botón -->
+            <section class="result-text">
+                <header>
+                    <h2>Here are your results!</h2>
+                </header>
                 <p>Texto</p>
                 <button class="play-again-btn">PLAY AGAIN</button>
-            </div>
-        </div>
-    </div>
+            </section>
+        </section>
+    </main>
     <script src="../script.js"></script>
 </body>
 
